@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+option go_package = "github.com/bn222/api/api";
+
+package port;
+
+service PortService {
+  rpc CreatePort(CreatePortRequest) returns (PortResponse);
+  rpc DeletePort(DeletePortRequest) returns (PortResponse);
+  rpc ClearAll(ClearAllRequest) returns (ClearAllResponse);
+}
+
+message PortDetails {
+  int32 vfid = 1;
+  int32 pfid = 2;
+  int32 vlan = 3;
+}
+
+message CreatePortRequest {
+  PortDetails details = 1;
+}
+
+message DeletePortRequest {
+  PortDetails details = 1;
+}
+
+message PortResponse {
+  bool success = 1;
+}
+
+message ClearAllRequest {
+}
+
+message ClearAllResponse {
+  bool success = 1;
+}
+
+service VendorManagementService {
+  rpc Init(InitRequest) returns (IpPort);
+}
+
+message InitRequest {
+  bool dpu_mode = 1;
+}
+
+message IpPort {
+  string ip = 1;
+  int32 port = 2;
+}
